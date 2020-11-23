@@ -1,0 +1,6 @@
+{"members":[
+    { "firstName":"Anders", "lastName":"Christiansen" , "id": 1234567890 },
+    { "firstName":"Walter", "lastName":"Christiansen" , "id": 1234567891 },
+    { "firstName":"Anders", "lastName":"Esbensen" , "id": 1234567892 },
+    { "firstName":"Jens", "lastName":"Nykjær" , "id": 1234567893 }
+  ]}
