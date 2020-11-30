@@ -1,12 +1,8 @@
 var http=require('http'),
-    qs = require('querystring');
+var qs = require('querystring');
 var fs = require('fs')
 
-
-
 //logger.write('some data') // append string to your file
-
-
 var server=http.createServer((function(request,response) {
     var logger = fs.createWriteStream('log.txt', {
         flags: 'a' // 'a' means appending (old data will be preserved)
