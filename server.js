@@ -1,5 +1,5 @@
 var http=require('http'),
-var qs = require('querystring');
+ qs = require('querystring');
 var fs = require('fs')
 
 //logger.write('some data') // append string to your file
@@ -18,8 +18,8 @@ var server=http.createServer((function(request,response) {
     else if (request.method === 'POST' /*&& req.url === '/login'*/) {
         // Open member.json
         let rawdata = fs.readFileSync('members.json');
-        let members = JSON.parse(rawdata);
-        console.log(members);
+        let members_file = JSON.parse(rawdata);
+        console.log(members_file);
 
         var body = '';
         request.on('data', function(chunk) {
@@ -29,19 +29,25 @@ var server=http.createServer((function(request,response) {
         request.on('end', function() {
             var data = qs.parse(body);
             // now you can access `data.id`
-            console.log(data.id)
+            console.log(data.id);
 
-            members.members.forEach(function(member) 
+            var found = false;
+            members_file.members.forEach( function(member) 
             { 
                 //console.log(member) 
                 if(member.id == data.id) {
-                    console.log(`Velkommen ${member.firstName}`)
-                    logger.write(`Velkommen ${member.firstName} \r\n`)
+                    console.log(`Velkommen ${member.firstName}`);
+                    //logger.write(`Velkommen ${member.firstName} \r\n`);
+                    found = true;
+                    response.writeHead(200);
+                    response.end(JSON.stringify(member));
                 }
-            });
 
-            response.writeHead(200);
-            response.end(JSON.stringify(data));
+            })
+            if(!found) {
+                response.writeHead(200);
+                response.end("Member not found");
+            }
         });
     } 
     /*else {
